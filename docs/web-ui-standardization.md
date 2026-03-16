@@ -13,7 +13,7 @@ Implemented from this plan so far:
 Remaining UI standardization can proceed incrementally without disrupting existing UX polish.
 
 > Part of the [2bananas Web UI Standardization Plan](../../docs/web-ui-standardization-plan.md).
-> **This document is a plan only. No code changes have been made.**
+> This document started as a plan and now includes implementation status updates.
 
 ---
 
