@@ -1,0 +1,47 @@
+[project]
+name = "commute-plan"
+root = "."
+
+[description]
+short = "Weather-driven commute planner for Tulsa that uses OpenWeather One Call 3.0 to decide walk vs drive, what to wear, and umbrella guidance, then sends Discord DMs and renders a local dashboard."
+stack = "Python service + PHP web dashboard; OpenWeather One Call 3.0; SQLite (comfort logs); Discord bot/DM notifications."
+purpose = "Turn raw forecasts into actionable, personal commute decisions and nudges on a reliable local-first workflow."
+service = ["commute-plan-comfort-api.service", "commute-plan-discord-feedback-bot.service"]
+long = """
+What it does:
+- Fetches and normalizes OpenWeather One Call 3.0 for a configured lat/lon (Tulsa default).
+- Builds morning/evening commute recommendations: walk_ok/score, outerwear, umbrella, and related rationale.
+- Sends Discord DMs only when the plan changes meaningfully vs the last run (threshold-based change detection).
+- Logs “comfort feedback” (what you wore + how comfy you felt) into SQLite to refine thresholds over time.
+- Optional Discord feedback bot supports DM commands and interactive logging UI.
+
+How it runs:
+- Scheduled scripts (morning/evening) update cache + compute plan + notify as needed.
+- Comfort logging can run via CLI and/or a small HTTP server for local posting.
+
+State & storage:
+- Cached weather JSON stored under data/ (e.g., tulsa_weather.json).
+- Last plan stored under data/last_plan.json for diffing.
+- Comfort logs stored in data/comfort.db.
+
+Config & integrations:
+- secrets/.env for API keys and bot tokens; secrets/commute_config.toml for thresholds and rules.
+- Discord integration uses bot token + user ID env vars.
+"""
+
+[[export.splits]]
+name = "backend"
+include_paths = ["app/src/**", "scripts/**", "scripts/**/**", "config/**"]
+
+[[export.splits]]
+name = "webui"
+include_paths = ["web/**", "web/**/**"]
+
+[[export.splits]]
+name = "meta"
+include_paths = ["README.md", ".codex.toml", "requirements.txt"]
+
+[backup]
+sources = [
+  { id = "repo", path = ".", enabled = true, excludes = ["web/static/uploads/originals", "**/storage/backups"] },
+]

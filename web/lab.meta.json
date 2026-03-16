@@ -1,0 +1,8 @@
+{
+  "title": "Commute Plan",
+  "description": "Transit commute planner with comfort tracking, feedback, and weather-aware guidance.",
+  "category": "app",
+  "tags": ["php", "python", "sqlite", "commute", "weather"],
+  "healthPath": "/health",
+  "accent": "#38bdf8"
+}

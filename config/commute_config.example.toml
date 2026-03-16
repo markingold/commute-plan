@@ -1,0 +1,43 @@
+# Commute planner thresholds & windows
+# Copy this file to secrets/commute_config.toml and edit there for real use.
+
+[morning]
+departure = "07:00"        # nominal leave time
+flex_minutes = 30          # +/- minutes we can shift to dodge rain
+
+[afternoon]
+departure = "15:30"
+flex_minutes = 30
+
+[temperature_f]
+cold_coat_below = 35       # <= this: heavy coat
+light_jacket_below = 55    # <= this: light jacket/hoodie
+short_sleeves_above = 70   # >= this: t-shirt fine
+shorts_above = 80          # >= this: shorts recommended
+
+[rain]
+umbrella_pop_threshold = 30       # % chance where umbrella recommended
+avoid_walk_pop_threshold = 70     # % chance where walking is discouraged
+
+[wind]
+# Above these speeds, walking is considered unsafe/unpleasant.
+max_walkable_speed_mph = 25       # sustained wind
+max_walkable_gust_mph = 40        # gusts
+
+[minutely]
+# Use OpenWeather "minutely" data in morning runs to refine departure time.
+enable_morning_refinement = true
+window_minutes = 20               # +/- this many minutes around nominal departure
+
+[change_thresholds]
+temp_change_significant = 5           # °F change that triggers a meaningful update
+pop_change_significant = 20           # POP percentage points change (0-100 scale)
+wind_speed_change_significant = 8     # mph change in sustained wind
+wind_gust_change_significant = 12     # mph change in gusts
+clothing_change_triggers_update = true
+
+[alerts]
+# If weather_update fails this many times in a row, send a DM.
+weather_fail_streak_threshold = 3
+# After sending a failure DM, wait at least this many minutes before another.
+weather_fail_cooldown_minutes = 60

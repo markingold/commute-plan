@@ -1,0 +1,7 @@
+python-dotenv>=1.0
+toml>=0.10
+requests>=2.31
+structlog>=24.1
+
+# Discord DM listener (feedback ingestion)
+disnake>=2.9.0

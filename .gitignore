@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+venv/
+.venv/
+
+# Local editor/agent artifacts
+.codex/
+.vscode/
+
+# Secrets
+secrets/.env
+secrets/*.env
+secrets/*.toml
+secrets/*.key
+secrets/*.pem
+
+# Runtime logs
+logs/*
+!logs/.gitkeep
+
+# Runtime/generated data (keep schema/sql snapshots)
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+data/last_plan.json
+data/tulsa_weather.json
+data/weather_status.json
+
+# OS
+.DS_Store
+Thumbs.db
