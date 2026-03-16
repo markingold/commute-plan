@@ -201,7 +201,8 @@ Expected keys (minimum):
 - Commute / environment (optional):
 
   - `APP_ENV`        – e.g. `dev` or `prod` (used for logging tweaks).
-  - `TIMEZONE`       – defaults to America/Chicago if not set.
+  - `TZ`             – preferred timezone key (defaults to America/Chicago if not set).
+  - `TIMEZONE`       – legacy fallback key (kept for backward compatibility).
   - `WORK_DAYS`      – comma-separated list of work days (e.g. `Mon,Tue,Wed,Thu,Fri`).
   - `WEATHER_JSON`   – optional override for the weather JSON path.
 

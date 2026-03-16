@@ -902,7 +902,7 @@ if (class_exists('SQLite3') && is_file($dbPathComfort)) {
 // Helpers for tab active classes
 // ---------------------------------------------------------------------
 function tabButtonClass(string $current, string $tab): string {
-    return $current === $tab ? 'tab-btn tab-btn-active' : 'tab-btn';
+  return $current === $tab ? 'tab-btn 2b-tab tab-btn-active' : 'tab-btn 2b-tab';
 }
 function tabPanelClass(string $current, string $tab): string {
     return $current === $tab ? 'tab-panel tab-panel-active' : 'tab-panel';
@@ -923,13 +923,13 @@ function tabPanelClass(string $current, string $tab): string {
         <header>
           <div class="title-block">
             <a class="lab-link" href="/">&larr; Lab</a>
-            <div class="chip">Commute Plan</div>
+            <div class="chip 2b-chip">Commute Plan</div>
             <h1>Tulsa Walking Dashboard</h1>
             <div class="subtitle">
               See what tomorrow looks like, nudge departure times, and tweak thresholds without touching the shell.
             </div>
           </div>
-          <div class="status-pill">
+          <div class="status-pill 2b-badge">
             <span class="status-dot"></span>
             Local-only · Dark mode
           </div>
@@ -953,13 +953,13 @@ function tabPanelClass(string $current, string $tab): string {
         <!-- Tab: Planner -->
         <div class="<?php echo h(tabPanelClass($activeTab, 'planner')); ?>" id="tab-panel-planner">
           <div class="grid-2">
-            <div class="card">
+            <div class="card 2b-card">
               <div class="card-header">
                 <div>
                   <div class="card-title"><span class="icon">🧠</span> Planner preview</div>
                   <div class="card-subtitle">Run the CLI and see exactly what it would send to Discord.</div>
                 </div>
-                <div class="badge"><span class="badge-dot" style="background: var(--accent2);"></span> venv · app.src.cli</div>
+                <div class="badge 2b-badge"><span class="badge-dot" style="background: var(--accent2);"></span> venv · app.src.cli</div>
               </div>
 
               <form method="post" style="position:relative; z-index:1;">
@@ -1007,13 +1007,13 @@ function tabPanelClass(string $current, string $tab): string {
               </form>
             </div>
 
-            <div class="card">
+            <div class="card 2b-card">
               <div class="card-header">
                 <div>
                   <div class="card-title"><span class="icon">��</span> Weekly overview</div>
                   <div class="card-subtitle">Emoji dashboard for the next few days using your commute windows.</div>
                 </div>
-                <div class="badge"><span class="badge-dot"></span> hourly · build_week_overview</div>
+                <div class="badge 2b-badge"><span class="badge-dot"></span> hourly · build_week_overview</div>
               </div>
 
               <div style="position:relative; z-index:1;">
@@ -1106,13 +1106,13 @@ function tabPanelClass(string $current, string $tab): string {
 
         <!-- Tab: Config (GUI) -->
         <div class="<?php echo h(tabPanelClass($activeTab, 'config_gui')); ?>" id="tab-panel-config_gui">
-          <div class="card">
+          <div class="card 2b-card">
             <div class="card-header">
               <div>
                 <div class="card-title"><span class="icon">🎛️</span> Commute config (GUI)</div>
                 <div class="card-subtitle">Adjust thresholds, POP limits, minutely refinement, and alert behavior.</div>
               </div>
-              <div class="badge"><span class="badge-dot"></span> secrets/commute_config.toml</div>
+              <div class="badge 2b-badge"><span class="badge-dot"></span> secrets/commute_config.toml</div>
             </div>
 
             <form method="post" style="position:relative; z-index:1;">
@@ -1172,13 +1172,13 @@ function tabPanelClass(string $current, string $tab): string {
 
         <!-- Tab: Config (raw) -->
         <div class="<?php echo h(tabPanelClass($activeTab, 'config_raw')); ?>" id="tab-panel-config_raw">
-          <div class="card">
+          <div class="card 2b-card">
             <div class="card-header">
               <div>
                 <div class="card-title"><span class="icon">📄</span> Commute config (raw TOML)</div>
                 <div class="card-subtitle">Full control for pasting/editing your config.</div>
               </div>
-              <div class="badge"><span class="badge-dot"></span> TOML editor</div>
+              <div class="badge 2b-badge"><span class="badge-dot"></span> TOML editor</div>
             </div>
 
             <form method="post" style="position:relative; z-index:1;">
@@ -1205,13 +1205,13 @@ function tabPanelClass(string $current, string $tab): string {
 
         <!-- Tab: Feedback -->
         <div class="<?php echo h(tabPanelClass($activeTab, 'feedback')); ?>" id="tab-panel-feedback">
-          <div class="card">
+          <div class="card 2b-card">
             <div class="card-header">
               <div>
                 <div class="card-title"><span class="icon">📝</span> Comfort feedback</div>
                 <div class="card-subtitle">Log how it felt + what you wore; stores nearest hourly snapshot alongside notes.</div>
               </div>
-              <div class="badge"><span class="badge-dot" style="background: var(--accent2);"></span> data/comfort.db · comfort_cli</div>
+              <div class="badge 2b-badge"><span class="badge-dot" style="background: var(--accent2);"></span> data/comfort.db · comfort_cli</div>
             </div>
 
             <form method="post" style="position:relative; z-index:1;">
@@ -1313,13 +1313,13 @@ function tabPanelClass(string $current, string $tab): string {
             </form>
           </div>
 
-          <div class="card" style="margin-top:12px;">
+          <div class="card 2b-card" style="margin-top:12px;">
             <div class="card-header">
               <div>
                 <div class="card-title"><span class="icon">🧾</span> Recent feedback</div>
                 <div class="card-subtitle">Latest 25 rows from <code>comfort_logs</code>.</div>
               </div>
-              <div class="badge"><span class="badge-dot"></span> export + table</div>
+              <div class="badge 2b-badge"><span class="badge-dot"></span> export + table</div>
             </div>
 
             <form method="post" style="margin-top:6px; position:relative; z-index:1;">
@@ -1385,13 +1385,13 @@ function tabPanelClass(string $current, string $tab): string {
             <?php endif; ?>
           </div>
 
-          <div class="card" style="margin-top:12px;" id="comfort-history">
+          <div class="card 2b-card" style="margin-top:12px;" id="comfort-history">
             <div class="card-header">
               <div>
                 <div class="card-title"><span class="icon">📚</span> Comfort history</div>
                 <div class="card-subtitle">Filter by date/context and export a filtered CSV.</div>
               </div>
-              <div class="badge"><span class="badge-dot"></span> server-side filter</div>
+              <div class="badge 2b-badge"><span class="badge-dot"></span> server-side filter</div>
             </div>
 
             <form method="get" style="position:relative; z-index:1; margin-top:6px;">
@@ -1523,7 +1523,7 @@ function tabPanelClass(string $current, string $tab): string {
                 </table>
               </div>
 
-              <div class="card" style="margin-top:12px; padding:12px;">
+              <div class="card 2b-card" style="margin-top:12px; padding:12px;">
                 <div class="card-title" style="margin-bottom:6px;">Comfort by feels-like (10°F bands)</div>
                 <div class="helper-text" style="margin-bottom:8px;">
                   “Comfy%” counts only comfort=comfortable|ok (baseline). As you log more, we can expand this.
@@ -1570,13 +1570,13 @@ function tabPanelClass(string $current, string $tab): string {
             <?php endif; ?>
           </div>
 
-          <div class="card" style="margin-top:12px;">
+          <div class="card 2b-card" style="margin-top:12px;">
             <div class="card-header">
               <div>
                 <div class="card-title"><span class="icon">🧠</span> Comfort suggestions</div>
                 <div class="card-subtitle">Uses your logged comfort data to suggest threshold tweaks (Phase 5).</div>
               </div>
-              <div class="badge"><span class="badge-dot"></span> comfort_suggest</div>
+              <div class="badge 2b-badge"><span class="badge-dot"></span> comfort_suggest</div>
             </div>
 
             <form method="post" style="margin-top:10px; position:relative; z-index:1;">
