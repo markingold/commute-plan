@@ -24,6 +24,14 @@ SECRETS_DIR = BASE_DIR / "secrets"
 LOG = get_logger("config-loader")
 
 
+def _first_env(*keys: str) -> str:
+    for key in keys:
+        value = (os.getenv(key) or "").strip()
+        if value:
+            return value
+    return ""
+
+
 def load_env() -> None:
     """
     Load environment variables from secrets/.env (if present).
@@ -53,6 +61,22 @@ def load_commute_config() -> Dict[str, Any]:
     if not cfg_path.is_file():
         raise FileNotFoundError(f"Commute config not found: {cfg_path}")
 
+    load_env()
+
     text = cfg_path.read_text(encoding="utf-8")
     data = toml.loads(text)
+
+    # Env-normalized defaults for callers that rely on these top-level keys.
+    tz = _first_env("TZ", "TIMEZONE") or "America/Chicago"
+    if _first_env("TIMEZONE") and not _first_env("TZ"):
+        LOG.info("timezone_fallback_used", from_key="TIMEZONE", to_key="TZ")
+
+    work_days_raw = _first_env("WORK_DAYS")
+    work_days = [d.strip() for d in work_days_raw.split(",") if d.strip()]
+
+    data.setdefault("tz", tz)
+    data.setdefault("timezone", tz)
+    data.setdefault("work_days", work_days)
+    data.setdefault("weather_json", _first_env("WEATHER_JSON") or str(BASE_DIR / "data" / "tulsa_weather.json"))
+    data.setdefault("state_file", _first_env("STATE_FILE") or "data/last_plan.json")
     return data
