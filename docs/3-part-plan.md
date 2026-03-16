@@ -408,3 +408,22 @@ Please confirm:
 4. Approve documentation-first reconciliation where existing docs are stale.
 
 Once approved, implementation can begin phase-by-phase with PR-sized changes.
+
+---
+
+## Execution Status (Live)
+
+Updated: 2026-03-16
+
+- Phase 0 (preconditions/git baseline): completed.
+- Phase 1 (logging foundation): completed.
+- Phase 2 (health + contract tests): completed.
+- Phase 3 (env/config normalization): in progress (TZ primary + TIMEZONE fallback completed; additional key cleanups can continue incrementally).
+- Phase 4 (web token/component migration): in progress (2b token layer + core class adoption + external JS + lab metadata completed).
+- Phase 5 (docs/guides closeout): in progress (guide index + run/verify + logging-check guides added; additional cleanup can continue as behavior evolves).
+
+Current branch notes:
+
+- `main` contains the validated baseline and first standardization wave.
+- `chore/standardize-logging-foundation` published for traceability of initial phase bundle.
+- `chore/env-key-alignment` published and merged to main for incremental env/UI alignment.
