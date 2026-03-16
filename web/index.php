@@ -760,7 +760,7 @@ $comfortRecent = comfort_read_recent($dbPathComfort, 25);
 // ---------------------------------------------------------------------
 if (is_executable($pythonBin)) {
     $cmdWeekly = sprintf(
-        'cd %s && %s -m app.src.cli %s 2>&1',
+    'cd %s && LOG_LEVEL=ERROR %s -m app.src.cli %s 2>&1',
         escapeshellarg($baseDir),
         escapeshellcmd($pythonBin),
         escapeshellarg('weekly_json')

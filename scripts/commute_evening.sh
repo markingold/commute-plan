@@ -20,6 +20,9 @@ LOG="$LOGDIR/cron_evening.log"
     . "$VENV"
   fi
 
+  # Keep local logs bounded; retention failures must not block commute jobs.
+  "$BASE/scripts/log_retention.sh" 14 || true
+
   # 1) Fetch weather
   if ! python -m app.src.weather_update; then
     echo "[$TS] Error: weather_update failed"

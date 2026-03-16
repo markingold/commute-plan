@@ -45,7 +45,14 @@ venv/bin/python -m pytest -q tests/contract/test_health.py
 scripts/smoke.sh
 ```
 
+5. Run log retention cleanup (14 days):
+
+```bash
+scripts/log_retention.sh 14
+```
+
 ## Pitfalls
 
 - If smoke fails immediately, verify `structlog` is installed in the same venv used by scripts.
 - If `/health` or `/version` tests fail, verify no stale API process is already bound to the port.
+- Log retention is automatically called by cron/service wrapper scripts, but can be run manually any time.

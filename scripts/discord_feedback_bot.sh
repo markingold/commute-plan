@@ -20,6 +20,9 @@ LOG="$LOGDIR/discord_feedback_bot.log"
     exit 1
   fi
 
+  # Keep local logs bounded before long-running bot startup.
+  "$BASE/scripts/log_retention.sh" 14 || true
+
   # Run the DM listener bot (blocking)
   exec "$PY" -m app.src.discord_feedback_bot
 } >>"$LOG" 2>&1

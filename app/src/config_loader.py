@@ -69,7 +69,7 @@ def load_commute_config() -> Dict[str, Any]:
     # Env-normalized defaults for callers that rely on these top-level keys.
     tz = _first_env("TZ", "TIMEZONE") or "America/Chicago"
     if _first_env("TIMEZONE") and not _first_env("TZ"):
-        LOG.info("timezone_fallback_used", from_key="TIMEZONE", to_key="TZ")
+        LOG.debug("timezone_fallback_used", from_key="TIMEZONE", to_key="TZ")
 
     work_days_raw = _first_env("WORK_DAYS")
     work_days = [d.strip() for d in work_days_raw.split(",") if d.strip()]
