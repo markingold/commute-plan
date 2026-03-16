@@ -30,6 +30,7 @@ scripts/smoke.sh
 
 - Service logs: stdout JSON (journald/systemd-friendly).
 - Script logs: `logs/` directory (cron wrappers append there).
+- Retention: logs older than 14 days are pruned by `scripts/log_retention.sh` (called by wrapper scripts).
 - Logging standard guide: `docs/guides/G-20-LOGGING-CHECKS.md`
 
 ## Documentation

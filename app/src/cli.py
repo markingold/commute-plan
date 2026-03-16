@@ -138,7 +138,10 @@ def main(argv: Optional[List[str]] = None) -> int:
     args = parser.parse_args(argv)
     run_id = uuid.uuid4().hex[:12]
     log = LOG.bind(run_id=run_id, mode=args.mode)
-    log.info("cli_start", days=args.days)
+
+    # Keep weekly_json stdout pure JSON for web consumers.
+    if args.mode != "weekly_json":
+        log.info("cli_start", days=args.days)
 
     # --- Mode: test ----------------------------------------------------------
     if args.mode == "test":
@@ -155,7 +158,6 @@ def main(argv: Optional[List[str]] = None) -> int:
             "days": week,
         }
         print(json.dumps(payload, indent=2))
-        log.info("cli_weekly_json_complete", day_count=len(week))
         return 0
 
     # --- Modes: evening / morning -------------------------------------------
