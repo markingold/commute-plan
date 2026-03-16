@@ -20,7 +20,8 @@ Still in progress / pending additional standardization:
 
 Use this section as the source of truth over stale generated assumptions below.
 
-> Generated 2026-02-28 from the ecosystem-wide audit. **No changes made yet.**
+> Generated 2026-02-28 from the ecosystem-wide audit.
+> Historical baseline: implementation is now in progress and has already completed multiple items above.
 
 ---
 

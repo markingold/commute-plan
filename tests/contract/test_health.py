@@ -29,6 +29,22 @@ def _http_json(path: str, request_id: str | None = None):
         return resp.status, headers, payload
 
 
+def _http_post_json(path: str, payload: dict, request_id: str | None = None):
+    req = urllib.request.Request(
+        f"{BASE_URL}{path}",
+        method="POST",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+    )
+    if request_id:
+        req.add_header("X-Request-Id", request_id)
+    with urllib.request.urlopen(req, timeout=3) as resp:
+        body = resp.read().decode("utf-8")
+        parsed = json.loads(body)
+        headers = {k.lower(): v for (k, v) in resp.headers.items()}
+        return resp.status, headers, parsed
+
+
 @pytest.fixture(scope="module")
 def api_server():
     env = os.environ.copy()
@@ -99,3 +115,20 @@ def test_version_contract(api_server):
     assert "x-request-id" in headers
     assert payload.get("ok") is True
     assert isinstance(payload.get("version"), str)
+
+
+def test_comfort_log_request_id_echo(api_server):
+    status, headers, payload = _http_post_json(
+        "/comfort-log",
+        {
+            "timestamp_local": "now",
+            "source": "contract_test",
+            "context": "commute",
+        },
+        request_id="test-post-req",
+    )
+
+    assert status == 200
+    assert headers.get("x-request-id") == "test-post-req"
+    assert payload.get("ok") is True
+    assert isinstance(payload.get("id"), int)
