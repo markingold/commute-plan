@@ -1,6 +1,26 @@
 commute-plan
 ============
 
+Status update (2026-03-16)
+--------------------------
+
+- Phase 1 logging foundation implemented with structured JSON logging.
+- Health contract expanded: `/health` now includes `version`, `time`, `uptime_s`.
+- Added `/version` endpoint.
+- Added contract tests in `tests/contract/test_health.py`.
+- Added smoke script in `scripts/smoke.sh`.
+- Added project guides index in `docs/guides/G-00-INDEX.md`.
+
+Quick verification
+------------------
+
+```bash
+cd /srv/2bananas/projects/commute-plan
+venv/bin/pip install -r requirements.txt -r requirements-dev.txt
+venv/bin/python -m pytest -q tests/contract/test_health.py
+scripts/smoke.sh
+```
+
 Small helper service that fetches OpenWeather One Call data for Tulsa, analyzes
 your usual walking commute windows, and sends concise Discord DMs to help you
 decide whether to walk or drive (and what to wear / whether to bring an umbrella).
