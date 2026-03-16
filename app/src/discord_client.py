@@ -51,13 +51,13 @@ def _load_env_once() -> None:
     for path in (ROOT_ENV, SECRETS_ENV):
         if path.is_file():
             load_dotenv(path, override=False)
-            LOG.info("env_loaded", env_path=str(path))
+            LOG.debug("env_loaded", env_path=str(path))
             loaded_any = True
 
     if not loaded_any:
         # Last-chance: generic .env in CWD or elsewhere
         load_dotenv(override=False)
-        LOG.info("env_not_found_using_process_env", root_env=str(ROOT_ENV), secrets_env=str(SECRETS_ENV))
+        LOG.debug("env_not_found_using_process_env", root_env=str(ROOT_ENV), secrets_env=str(SECRETS_ENV))
 
 
 _load_env_once()
@@ -129,7 +129,7 @@ def _create_dm_channel(token: str, user_id: str) -> Optional[str]:
         LOG.error("dm_channel_missing_id")
         return None
 
-    LOG.info("dm_channel_ready", channel_id=channel_id)
+    LOG.debug("dm_channel_ready", channel_id=channel_id)
     return channel_id
 
 
@@ -177,13 +177,13 @@ def send_message(content: str) -> bool:
     token = cfg["token"]
     user_id = cfg["user_id"]
 
-    LOG.info("dm_channel_create_start")
+    LOG.debug("dm_channel_create_start")
     channel_id = _create_dm_channel(token, user_id)
     if not channel_id:
         LOG.error("dm_channel_create_unavailable")
         return False
 
-    LOG.info("dm_send_start", channel_id=channel_id)
+    LOG.debug("dm_send_start", channel_id=channel_id)
     return _send_channel_message(token, channel_id, content)
 
 

@@ -23,7 +23,7 @@ _PROJECT = "commute-plan"
 
 
 def _resolve_level() -> int:
-    raw = (os.getenv("LOG_LEVEL") or "INFO").upper().strip()
+    raw = (os.getenv("LOG_LEVEL") or "WARNING").upper().strip()
     return getattr(logging, raw, logging.INFO)
 
 

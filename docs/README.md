@@ -68,12 +68,12 @@ Architecture overview
 
 Key pieces:
 
-- app/src/weather_update.py  
+- app/src/weather_update.py
   Fetches One Call 3.0 data from OpenWeather for your configured coordinates,
   normalizes units (Fahrenheit, mph, inches, etc.), and saves to
   `data/tulsa_weather.json` with a small `_units` block describing the units.
 
-- app/src/weather_reader.py  
+- app/src/weather_reader.py
   Loads the cached JSON from `data/tulsa_weather.json`, handles timezone-aware
   conversion to local time (America/Chicago by default), and exposes helpers to
   the planner:
@@ -82,7 +82,7 @@ Key pieces:
   - Daily helpers: next N days (for weekly overview fallback when hourly data
     runs out).
 
-- app/src/planner.py  
+- app/src/planner.py
   Core logic that:
   - Scans the hourly forecast.
   - Picks the best forecast points inside your morning/afternoon windows.
@@ -98,11 +98,11 @@ Key pieces:
       - Hourly data where available.
       - Daily data as a fallback for later days.
 
-- app/src/planner_utils.py  
+- app/src/planner_utils.py
   Utilities for turning a `DayPlan` into nicely formatted text suitable for a
   Discord message and CLI output.
 
-- app/src/cli.py  
+- app/src/cli.py
   Command-line entry point to quickly test and inspect plans without sending
   Discord messages. Modes:
   - `test`        – prints configuration info, no plan.
@@ -112,7 +112,7 @@ Key pieces:
     - Includes per-day AM/PM temps, feels-like, POP, wind, outerwear, walk_score.
     - Used by the web dashboard to render the weekly grid.
 
-- app/src/notifier.py  
+- app/src/notifier.py
   Orchestrates:
   - Building a plan (morning/evening).
   - Comparing the new plan to the last saved one.
@@ -123,32 +123,32 @@ Key pieces:
 
         data/last_plan.json
 
-- app/src/discord_client.py  
+- app/src/discord_client.py
   Small helper that:
   - Loads secrets from `secrets/.env` (and/or process env).
   - Creates (or reuses) a DM channel with your Discord user ID.
   - Sends the commute summary as a message to that DM.
 
-- app/src/config_loader.py (if present)  
+- app/src/config_loader.py (if present)
   Shared loader for environment variables and config paths used by the planner,
   notifier, and dashboard. Centralizes things like `secrets/.env` resolution,
   timezone, and weather JSON location.
 
-- scripts/commute_evening.sh  
+- scripts/commute_evening.sh
   Wrapper script for cron that:
   - Activates the virtualenv.
   - Runs the weather update.
   - Runs the evening notifier (tomorrow’s plan).
   - Logs output to `logs/cron_evening.log`.
 
-- scripts/commute_morning.sh  
+- scripts/commute_morning.sh
   Wrapper script for cron that:
   - Activates the virtualenv.
   - Runs the weather update.
   - Runs the morning notifier (today’s plan).
   - Logs output to `logs/cron_morning.log`.
 
-- web/index.php  
+- web/index.php
   Local web dashboard (dark-mode, single-page) that:
   - Shows a "Planner" card:
     - Radio buttons for modes: `test`, `evening`, `morning`, `weekly_json`.
@@ -168,7 +168,7 @@ Key pieces:
     - Writes back to disk and re-syncs the GUI view.
   - Uses simple CSRF protection for POST actions.
 
-- logs/  
+- logs/
   Contains:
   - `logs/steps/…` – one-off setup/patch logs.
   - `logs/cron_evening.log` – appended to by `commute_evening.sh`.
@@ -230,25 +230,25 @@ Project layout
 
 Key directories:
 
-- `/srv/2bananas/projects/commute-plan/app/src/`  
+- `/srv/2bananas/projects/commute-plan/app/src/`
   Python source (weather update, reader, planner, notifier, Discord client, CLI).
 
-- `/srv/2bananas/projects/commute-plan/web/`  
+- `/srv/2bananas/projects/commute-plan/web/`
   - `index.php` – local web dashboard (Planner + Weekly overview + Config GUI + raw TOML).
 
-- `/srv/2bananas/projects/commute-plan/data/`  
+- `/srv/2bananas/projects/commute-plan/data/`
   - `tulsa_weather.json` – latest cached forecast.
   - `last_plan.json`     – last sent commute plan (for diffing).
 
-- `/srv/2bananas/projects/commute-plan/secrets/`  
+- `/srv/2bananas/projects/commute-plan/secrets/`
   - `.env`                     – environment / secrets.
   - `commute_config.toml`      – real commute thresholds used by planner + dashboard.
 
-- `/srv/2bananas/projects/commute-plan/scripts/`  
+- `/srv/2bananas/projects/commute-plan/scripts/`
   - `commute_evening.sh` – cron wrapper.
   - `commute_morning.sh` – cron wrapper.
 
-- `/srv/2bananas/projects/commute-plan/logs/`  
+- `/srv/2bananas/projects/commute-plan/logs/`
   - `cron_evening.log`, `cron_morning.log` (runtime logs).
   - `steps/` (manual setup/patch logs).
 

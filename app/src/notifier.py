@@ -391,7 +391,7 @@ def build_and_maybe_send(mode: str, dry_run: bool = False, force: bool = False) 
 
     # Build new plan
     now = datetime.now()
-    log.info("notifier_now", now=now.isoformat())
+    log.debug("notifier_now", now=now.isoformat())
     plan = planner.build_day_plan(mode=mode, now=now)
     new_plan_dict = dayplan_to_dict(plan)
 
@@ -400,7 +400,7 @@ def build_and_maybe_send(mode: str, dry_run: bool = False, force: bool = False) 
     block = format_plan_block(plan)
     message = f"{one_line}\n\n```text\n{block}\n```"
 
-    log.info("message_preview", preview=message)
+    log.debug("message_preview", preview=message)
 
     # Load previous plan and decide if we should send
     old_plan = load_last_plan()
@@ -417,14 +417,14 @@ def build_and_maybe_send(mode: str, dry_run: bool = False, force: bool = False) 
         log.info("meaningful_change_detected")
         if reasons:
             for reason in reasons:
-                log.info("change_reason", reason=reason)
+                log.debug("change_reason", reason=reason)
     else:
         log.info("no_meaningful_change_skip_send")
         return 0
 
     # At this point we consider it "changed": update last_plan.json
     save_plan(new_plan_dict)
-    log.info("state_saved", state_file=str(STATE_FILE))
+    log.debug("state_saved", state_file=str(STATE_FILE))
 
     if dry_run:
         log.info("dry_run_skip_send")

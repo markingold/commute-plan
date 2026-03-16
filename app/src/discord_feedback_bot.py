@@ -624,11 +624,11 @@ class FeedbackBot(disnake.Client):
 
         if cmd.get("_cmd") == "help":
             await message.channel.send(HELP_TEXT)
-            LOG.info("help_command_sent", author_id=author_id)
+            LOG.debug("help_command_sent", author_id=author_id)
             return
 
 
-                
+
         # >>> BEGIN: walk_command_handler >>>
         # Handle '!walk' as an interactive dropdown flow (stateful view)
         if cmd.get("_cmd") == "walk":
@@ -640,7 +640,7 @@ class FeedbackBot(disnake.Client):
                     view.message = sent
                 except Exception:
                     pass
-                LOG.info("walk_menu_opened", author_id=author_id, api_base=api_base)
+                LOG.debug("walk_menu_opened", author_id=author_id, api_base=api_base)
             except Exception as e:
                 LOG.error("walk_menu_open_failed", author_id=author_id, error=str(e))
                 await message.channel.send(f"❌ Could not open walk menu: {e}")
@@ -664,7 +664,7 @@ class FeedbackBot(disnake.Client):
             await message.channel.send(f"❌ DB insert failed: {e}")
             return
 
-        LOG.info("feedback_logged", author_id=author_id, row_id=new_id, nearest_hour=nearest)
+        LOG.debug("feedback_logged", author_id=author_id, row_id=new_id, nearest_hour=nearest)
         await message.channel.send(summarize_row(row, nearest, new_id=new_id))
 
 

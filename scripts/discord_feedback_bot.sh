@@ -24,5 +24,5 @@ LOG="$LOGDIR/discord_feedback_bot.log"
   "$BASE/scripts/log_retention.sh" 14 || true
 
   # Run the DM listener bot (blocking)
-  exec "$PY" -m app.src.discord_feedback_bot
+  exec env LOG_LEVEL=WARNING "$PY" -m app.src.discord_feedback_bot
 } >>"$LOG" 2>&1

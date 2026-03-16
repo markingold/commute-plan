@@ -24,7 +24,7 @@ LOG="$LOGDIR/cron_morning.log"
   "$BASE/scripts/log_retention.sh" 14 || true
 
   # 1) Fetch weather
-  if ! python -m app.src.weather_update; then
+  if ! LOG_LEVEL=WARNING python -m app.src.weather_update; then
     echo "[$TS] Error: weather_update failed"
     "$BASE/venv/bin/python" -m app.src.alerts weather_fail "Morning cron: weather_update failed"
     echo "[$TS] === commute-plan morning job done (failure) ==="
@@ -34,7 +34,7 @@ LOG="$LOGDIR/cron_morning.log"
   "$BASE/venv/bin/python" -m app.src.alerts weather_ok || true
 
   # 2) Build & send morning plan (today)
-  if python -m app.src.notifier morning; then
+  if LOG_LEVEL=WARNING python -m app.src.notifier morning; then
     echo "[$TS] notifier morning: OK"
   else
     echo "[$TS] notifier morning: FAILED"
